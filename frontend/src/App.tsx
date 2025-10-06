@@ -2,6 +2,8 @@ import './locale/i18n';
 
 import { useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 import Agents from './agents';
 import SharedAgentGate from './agents/SharedAgentGate';
@@ -38,11 +40,16 @@ function MainLayout() {
       <Navigation navOpen={navOpen} setNavOpen={setNavOpen} />
       <ActionButtons showNewChat={true} showShare={true} />
       <div
-        className={`h-[calc(100dvh-64px)] overflow-auto transition-all duration-300 ease-in-out lg:h-screen ${
-          !(isMobile || isTablet)
-            ? `${navOpen ? 'lg:ml-72' : 'lg:ml-0'}`
-            : 'ml-0 lg:ml-16'
-        }`}
+        className={twMerge(
+          clsx(
+            'h-[calc(100dvh-64px)] overflow-auto transition-all duration-300 ease-in-out lg:h-screen',
+            !(isMobile || isTablet)
+              ? navOpen
+                ? 'lg:ml-72'
+                : 'lg:ml-0'
+              : ['ml-0', 'lg:ml-16'],
+          ),
+        )}
       >
         <Outlet />
       </div>
