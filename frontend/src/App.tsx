@@ -32,8 +32,8 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
 }
 
 function MainLayout() {
-  const { isMobile, isTablet } = useMediaQuery();
-  const [navOpen, setNavOpen] = useState(!(isMobile || isTablet));
+  const { isDesktop } = useMediaQuery();
+  const [navOpen, setNavOpen] = useState(isDesktop);
 
   return (
     <div className="dark:bg-raisin-black relative h-screen overflow-hidden">
@@ -43,11 +43,7 @@ function MainLayout() {
         className={twMerge(
           clsx(
             'h-[calc(100dvh-64px)] overflow-auto transition-all duration-300 ease-in-out lg:h-screen',
-            !(isMobile || isTablet)
-              ? navOpen
-                ? 'lg:ml-72'
-                : 'lg:ml-0'
-              : ['ml-0', 'lg:ml-16'],
+            isDesktop ? (navOpen ? 'lg:ml-72' : 'lg:ml-0') : 'ml-0',
           ),
         )}
       >
